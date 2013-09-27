@@ -42,30 +42,53 @@
 				,txtTax
 				,btnCalculate
 				,divResult
-				,divCalculator;
+				,divCalculator
+				,divCalculateCount
+				,calculateCount = 0;
 
 			function onCalculate(){
-				calculator.basic(parseInt(txtBasic.value,10));
-				calculator.hra(parseInt(txtHra.value,10));
-				calculator.da(parseInt(txtDa.value,10));
-				calculator.tax(parseInt(txtTax.value,10));
+				calculateCount++;
      			divResult.innerHTML = calculator.calculate();
+     			divCalculateCount.innerHTML = calculateCount;
 			}
+
+			function onTxtBasicChange(){
+				calculator.basic(parseInt(txtBasic.value,10));
+			}
+			function onTxtHraChange(){
+				calculator.hra(parseInt(txtHra.value,10));
+			}
+			function onTxtDaChange(){
+				calculator.da(parseInt(txtDa.value,10));
+			}
+			function onTxtTaxChange(){
+				calculator.tax(parseInt(txtTax.value,10));
+			}
+
+			function initialize(){
+				divCalculateCount = document.getElementById("divCalculateCount");
+				divCalculator = document.getElementById("divCalculator");
+				btnCalculate = document.getElementById("btnCalculate");
+				txtBasic = document.getElementById("txtBasic");
+				txtHra = document.getElementById("txtHra");
+				txtDa = document.getElementById("txtDa");
+				txtTax = document.getElementById("txtTax");
+				divResult = document.getElementById("divResult");
+
+				txtBasic.onchange = onTxtBasicChange;
+				txtHra.onchange = onTxtHraChange;
+				txtDa.onchange = onTxtDaChange;
+				txtTax.onchange = onTxtTaxChange;
+				btnCalculate.onclick = onCalculate;
+			}
+			function hide(){
+				divCalculator.style.display = "none";
+			}
+
 			return {
-				init: function(){
-					divCalculator = document.getElementById("divCalculator");
-					btnCalculate = document.getElementById("btnCalculate");
-					txtBasic = document.getElementById("txtBasic");
-					txtHra = document.getElementById("txtHra");
-					txtDa = document.getElementById("txtDa");
-					txtTax = document.getElementById("txtTax");
-					divResult = document.getElementById("divResult");
-					btnCalculate.onclick = onCalculate;
-				},
-				hide : function(){
-					divCalculator.style.display = "none";
-				}
-			}
+				init: initialize,
+				hide : hide
+			};
 		}(calculator));
 		window.onload = function(){
 			calculatorView.init();
@@ -80,6 +103,7 @@
 	<div><label for="txtTax">Tax :</label><input type="text" name="" id="txtTax"></div>
 	<div><input type="button" value="Calculate" id="btnCalculate"></div>
 	<div id="divResult"></div>	
+	<div id="divCalculateCount"></div>
 	</div>
 	
 </body>
