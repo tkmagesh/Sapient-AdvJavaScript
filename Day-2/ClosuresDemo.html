@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Closures Demo</title>
+</head>
+<body>
+	<input type="button" value="Count" id="btnCount">
+	<div id="divMessage"></div>
+	<script>
+	(function(){
+		var count = 0;
+		document.getElementById("btnCount").onclick = function(){
+			count++;
+			displayCount();
+		}
+		function displayCount(){
+			document.getElementById("divMessage").innerHTML = count;
+		}
+	}());
+
+	</script>
+</body>
+</html>

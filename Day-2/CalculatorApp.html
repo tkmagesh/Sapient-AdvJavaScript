@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Salary Calcualtor</title>
+	<script>
+		var calculator = (function(){
+			var _basic = 0
+				, _hra = 0
+				, _da = 0
+				, _tax = 0;
+			function getNet(){
+				return _basic + _hra + _da;
+			}
+			return {
+				basic : function(){
+					if (arguments.length == 0) return _basic;
+					_basic = arguments[0];
+				},
+				hra : function(){
+					if (arguments.length == 0) return _hra;
+					_hra = arguments[0];
+				},
+				da : function(){
+					if (arguments.length == 0) return _da;
+					_da = arguments[0];
+				},
+				tax : function(){
+					if (arguments.length == 0) return _tax;
+					_tax = arguments[0];
+				},
+				calculate : function(){
+					return getNet() * ((100 - _tax)/100);
+				}
+			}
+		}());
+		var calculatorView = (function(calc){
+			var calculator = calc
+				,txtBasic
+				,txtHra
+				,txtDa
+				,txtTax
+				,btnCalculate
+				,divResult
+				,divCalculator;
+
+			function onCalculate(){
+				calculator.basic(parseInt(txtBasic.value,10));
+				calculator.hra(parseInt(txtHra.value,10));
+				calculator.da(parseInt(txtDa.value,10));
+				calculator.tax(parseInt(txtTax.value,10));
+     			divResult.innerHTML = calculator.calculate();
+			}
+			return {
+				init: function(){
+					divCalculator = document.getElementById("divCalculator");
+					btnCalculate = document.getElementById("btnCalculate");
+					txtBasic = document.getElementById("txtBasic");
+					txtHra = document.getElementById("txtHra");
+					txtDa = document.getElementById("txtDa");
+					txtTax = document.getElementById("txtTax");
+					divResult = document.getElementById("divResult");
+					btnCalculate.onclick = onCalculate;
+				},
+				hide : function(){
+					divCalculator.style.display = "none";
+				}
+			}
+		}(calculator));
+		window.onload = function(){
+			calculatorView.init();
+		}
+	</script>
+</head>
+<body>
+	<div id="divCalculator">
+		<div><label for="txtBasic">Basic :</label><input type="text" name="" id="txtBasic"></div>
+	<div><label for="txtHra">Hra :</label><input type="text" name="" id="txtHra"></div>
+	<div><label for="txtDa">Da :</label><input type="text" name="" id="txtDa"></div>
+	<div><label for="txtTax">Tax :</label><input type="text" name="" id="txtTax"></div>
+	<div><input type="button" value="Calculate" id="btnCalculate"></div>
+	<div id="divResult"></div>	
+	</div>
+	
+</body>
+</html>
