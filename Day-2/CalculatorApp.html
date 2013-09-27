@@ -3,93 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Salary Calcualtor</title>
+	<script src="calculator.js"></script>
+	<script src="calculatorView.js"></script>
 	<script>
-		var calculator = (function(){
-			var _basic = 0
-				, _hra = 0
-				, _da = 0
-				, _tax = 0;
-			function getNet(){
-				return _basic + _hra + _da;
-			}
-			return {
-				basic : function(){
-					if (arguments.length == 0) return _basic;
-					_basic = arguments[0];
-				},
-				hra : function(){
-					if (arguments.length == 0) return _hra;
-					_hra = arguments[0];
-				},
-				da : function(){
-					if (arguments.length == 0) return _da;
-					_da = arguments[0];
-				},
-				tax : function(){
-					if (arguments.length == 0) return _tax;
-					_tax = arguments[0];
-				},
-				calculate : function(){
-					return getNet() * ((100 - _tax)/100);
-				}
-			}
-		}());
-		var calculatorView = (function(calc){
-			var calculator = calc
-				,txtBasic
-				,txtHra
-				,txtDa
-				,txtTax
-				,btnCalculate
-				,divResult
-				,divCalculator
-				,divCalculateCount
-				,calculateCount = 0;
-
-			function onCalculate(){
-				calculateCount++;
-     			divResult.innerHTML = calculator.calculate();
-     			divCalculateCount.innerHTML = calculateCount;
-			}
-
-			function onTxtBasicChange(){
-				calculator.basic(parseInt(txtBasic.value,10));
-			}
-			function onTxtHraChange(){
-				calculator.hra(parseInt(txtHra.value,10));
-			}
-			function onTxtDaChange(){
-				calculator.da(parseInt(txtDa.value,10));
-			}
-			function onTxtTaxChange(){
-				calculator.tax(parseInt(txtTax.value,10));
-			}
-
-			function initialize(){
-				divCalculateCount = document.getElementById("divCalculateCount");
-				divCalculator = document.getElementById("divCalculator");
-				btnCalculate = document.getElementById("btnCalculate");
-				txtBasic = document.getElementById("txtBasic");
-				txtHra = document.getElementById("txtHra");
-				txtDa = document.getElementById("txtDa");
-				txtTax = document.getElementById("txtTax");
-				divResult = document.getElementById("divResult");
-
-				txtBasic.onchange = onTxtBasicChange;
-				txtHra.onchange = onTxtHraChange;
-				txtDa.onchange = onTxtDaChange;
-				txtTax.onchange = onTxtTaxChange;
-				btnCalculate.onclick = onCalculate;
-			}
-			function hide(){
-				divCalculator.style.display = "none";
-			}
-
-			return {
-				init: initialize,
-				hide : hide
-			};
-		}(calculator));
 		window.onload = function(){
 			calculatorView.init();
 		}
