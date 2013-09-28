@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Timer Demo</title>
+	<script>
+	;(function(window,document){
+		function initialize(){
+			document.getElementById("btnDoWork").onclick = onBtnDoWorkClick;
+		}
+		window.onload = initialize;
+
+		function onBtnDoWorkClick(){
+			displayMessage("Work Starting...");
+			setTimeout(function(){
+				doWork();
+				displayMessage("Work Completed");	
+			},1);
+		}
+		function doWork(){
+			for(var i=0;i<100000;i++)
+				for(var j=0;j<1000;j++)
+					for(var k=0;k<100;k++)
+					{}
+		}
+		function displayMessage(msg){
+			document.getElementById("divMessage").innerHTML += msg + "</br>";
+		}
+
+	}(window,document,undefined));
+	</script>
+</head>
+<body>
+	<input type="text" name="" id="">
+	<button id="btnDoWork">Do Work</button>
+	<div id="divMessage"></div>
+</body>
+</html>
