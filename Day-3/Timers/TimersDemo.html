@@ -12,20 +12,25 @@
 
 		function onBtnDoWorkClick(){
 			displayMessage("Work Starting...");
-			doWork(function(){
+			doWork(function(percentCompleted){
+				document.getElementById("progress").value = percentCompleted;
+			},function(){
 				displayMessage("Work Completed");
 			})
 				
 		}
-		function doWork(onCompleteCallback){
+		function doWork(onProgressCallback,onCompleteCallback){
 			var count = 100, currentIter = 0;
 			function iteration(){
 				for(var i=0;i<1000;i++)
 					for(var j=0;j<1000;j++)
 						for(var k=0;k<100;k++)
 						{}
-				if (++currentIter < count)
+				if (++currentIter < count){
+					if (typeof onProgressCallback === "function")
+						onProgressCallback(currentIter);
 					setTimeout(iteration,3);
+				}
 				else
 				 if (typeof onCompleteCallback === "function")
 				 	onCompleteCallback();
