@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Promises</title>
+	<script src="jquery-1.10.2.min.js"></script>
+	<script>
+	$(function(){
+		function doAjax(){
+			var def = $.ajax("sample.html");
+			def.done(function(){
+				console.log("ajax done - 1");
+			});
+			def.done(function(){
+				console.log("ajax done - 2");
+			});
+			def.done(function(){
+				console.log("ajax done - 3");
+			});
+			def.done(function(){
+				console.log("ajax done - 4");
+			});
+			console.log(def);
+		}
+		$("#btnLoad").click(doAjax);
+	});
+	</script>
+</head>
+<body>
+	<button id="btnLoad">Load</button>
+</body>
+</html>
