@@ -13,46 +13,47 @@ var calculatorView = (function(calc){
 	function onCalculate(){
 		calculateCount++;
 			calculator.calculate();
-			divCalculateCount.innerHTML = calculateCount;
+			divCalculateCount.html(calculateCount);
 	}
 
 	function updateBasic(){
-		calculator.basic(parseInt(txtBasic.value,10));
+		calculator.basic(parseInt(txtBasic.val(),10));
 	}
 	function updateHra(){
-		calculator.hra(parseInt(txtHra.value,10));
+		calculator.hra(parseInt(txtHra.val(),10));
 	}
 	function updateDa(){
-		calculator.da(parseInt(txtDa.value,10));
+		calculator.da(parseInt(txtDa.val(),10));
 	}
 	function updateTax(){
-		calculator.tax(parseInt(txtTax.value,10));
+		calculator.tax(parseInt(txtTax.val(),10));
 	}
 
 	function updateSalary(){
-		divResult.innerHTML = calculator.salary();;
+		console.log(calculator.salary());
+		divResult.html(calculator.salary());
 	}
 
 	function initialize(){
-		divCalculateCount = document.getElementById("divCalculateCount");
-		divCalculator = document.getElementById("divCalculator");
-		btnCalculate = document.getElementById("btnCalculate");
-		txtBasic = document.getElementById("txtBasic");
-		txtHra = document.getElementById("txtHra");
-		txtDa = document.getElementById("txtDa");
-		txtTax = document.getElementById("txtTax");
-		divResult = document.getElementById("divResult");
+		divCalculateCount = $("#divCalculateCount");
+		divCalculator = $("#divCalculator");
+		btnCalculate = $("#btnCalculate");
+		txtBasic = $("#txtBasic");
+		txtHra = $("#txtHra");
+		txtDa = $("#txtDa");
+		txtTax = $("#txtTax");
+		divResult = $("#divResult");
 
-		txtBasic.onchange = updateBasic;
-		txtHra.onchange = updateHra;
-		txtDa.onchange = updateDa;
-		txtTax.onchange = updateTax;
-		btnCalculate.onclick = onCalculate;
+		txtBasic.change(updateBasic);
+		txtHra.change(updateHra);
+		txtDa.change(updateDa);
+		txtTax.change(updateTax);
+		btnCalculate.click(onCalculate);
 
 		calculator.subscribeSalaryChange(updateSalary);
 	}
 	function hide(){
-		divCalculator.style.display = "none";
+		divCalculator.hide();
 	}
 
 	return {
