@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script>
+	(function(){
+		window.addEventListener("DOMContentLoaded",function(){
+			document.getElementById("btnShowHide").addEventListener("click",onBtnShowHideClick);
+			function onBtnShowHideClick(){
+				var content = document.getElementById("content");
+				content.style.display = (content.style.display == "none" ? "block" : "none");
+			}
+		});
+	}());
+	</script>
+	
+</head>
+<body>
+	<div id="content"><input type="text" name="" id=""><input type="text" name="" id=""><input type="text" name="" id=""></div>
+	<button id="btnShowHide">Show/Hide</button>
+</body>
+</html>

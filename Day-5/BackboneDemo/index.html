@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Backbone Demo</title>
+	<script src="jquery.js"></script>
+	<script src="underscore.js"></script>
+	<script src="backbone.js"></script>
+	<script src="backbone.localstorage.js"></script>
+	<script>
+	//localStorage: new Backbone.LocalStorage("SomeCollection")
+	</script>
+	<script>
+		var Book = Backbone.Model.extend({
+		  url : "books",
+		  defaults : {
+		     id : 0,
+		     title : "<No Title Yet>",
+		     units : 10,
+		     unitCost : 0
+		  },
+		  initialize : function(){
+		    console.log("a new Book model instance is created");
+		  }
+		 
+		});
+
+		function BookView(model,templateId){
+			var _templateId = templateId;
+			this.$root = $($(_templateId).html());
+			var that = this;
+			function updateTitle(){
+				$("#txtTitle",that.$root).val(model.get("title"));
+			}
+
+			this.initialize = function(){
+				model.on("change:title",updateTitle);
+
+				$("#txtTitle",this.$root)
+					.change(function(){ model.set("title",this.value);});
+
+				$("#txtUnits",this.$root)
+					.val(model.get("units"))
+					.change(function(){ model.set("units",this.value);});
+
+				$("#txtUnitCost",this.$root)
+					.val(model.get("unitCost"))
+					.change(function(){ model.set("unitCost",this.value);});
+				updateTitle();
+			}
+		}
+		$(function(){
+			window.book = new Book();
+			window.bookView= new BookView(book,"#bookViewTemplate");
+			window.bookView.initialize();
+		});
+
+	</script>
+	<script type="text/template" id="bookViewTemplate">
+		<div id="content">
+		<div><label for="txtTitle">Title  :</label><input type="text" name="txtTitle" id="txtTitle"></div>
+		<div><label for="txtUnits">Units  :</label><input type="text" name="" id="txtUnits"></div>
+		<div><label for="txtUnitCost">Unit Cost  :</label><input type="text" name="" id="txtUnitCost"></div>
+		<input type="button" value="Save" id="btnSave"><input type="reset" value="Reset">
+		</div>
+	</script>
+</head>
+<body>
+	
+	
+</body>
+</html>
