@@ -52,19 +52,26 @@
 
 		var BookView = Backbone.View.extend({
 		   templateId : "#bookViewTemplate",
+
 		   initialize : function(){
-		   	 this.$el = $($(this.templateId).html());
 		     this.listenTo(this.model,'change',this.render);
+		     this.compiledTemplate =  _.template($("#bookViewTemplate").html());
 		   },
 		   events : {
 		      "click #btnSave" : "saveBook",
 		      "change input:text" : "updateBook"
 		   },
 		   render : function(){
-			this.$el.find("#txtTitle").val(this.model.get("title"));
+		   	console.log("render called");
+		   	this.$el.html(this.compiledTemplate(this.model.toJSON()));
+
+			/*this.$el.find("#txtTitle").val(this.model.get("title"));
 			this.$el.find("#txtUnits").val(this.model.get("units"));
-			this.$el.find("#txtUnitCost").val(this.model.get("unitCost"));  
+			this.$el.find("#txtUnitCost").val(this.model.get("unitCost"));  */
 		    return this;
+		   },
+		   saveBook : function(){
+		   		console.log(this.model.toJSON(), " saved");
 		   },
 		   updateBook : function(){
 		   		console.log("updateBook triggered");
@@ -82,9 +89,9 @@
 	</script>
 	<script type="text/template" id="bookViewTemplate">
 		<div id="content">
-		<div><label for="txtTitle">Title  :</label><input type="text" name="txtTitle" id="txtTitle"></div>
-		<div><label for="txtUnits">Units  :</label><input type="text" name="" id="txtUnits"></div>
-		<div><label for="txtUnitCost">Unit Cost  :</label><input type="text" name="" id="txtUnitCost"></div>
+		<div><label for="txtTitle">Title  :</label><input type="text" name="txtTitle" id="txtTitle" value="<%=title%>"></div>
+		<div><label for="txtUnits">Units  :</label><input type="text" name="" id="txtUnits" value="<%=units%>"></div>
+		<div><label for="txtUnitCost">Unit Cost  :</label><input type="text" name="" id="txtUnitCost" value="<%=unitCost%>"></div>
 		<input type="button" value="Save" id="btnSave"><input type="reset" value="Reset">
 		</div>
 	</script>
