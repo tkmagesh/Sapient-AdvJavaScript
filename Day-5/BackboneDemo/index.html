@@ -25,7 +25,7 @@
 		 
 		});
 
-		function BookView(model,templateId){
+		/*function BookView(model,templateId){
 			var _templateId = templateId;
 			this.$root = $($(_templateId).html());
 			var that = this;
@@ -48,11 +48,35 @@
 					.change(function(){ model.set("unitCost",this.value);});
 				updateTitle();
 			}
-		}
+		}*/
+
+		var BookView = Backbone.View.extend({
+		   templateId : "#bookViewTemplate",
+		   initialize : function(){
+		   	 this.$el = $($(this.templateId).html());
+		     this.listenTo(this.model,'change',this.render);
+		   },
+		   events : {
+		      "click #btnSave" : "saveBook",
+		      "change input:text" : "updateBook"
+		   },
+		   render : function(){
+			this.$el.find("#txtTitle").val(this.model.get("title"));
+			this.$el.find("#txtUnits").val(this.model.get("units"));
+			this.$el.find("#txtUnitCost").val(this.model.get("unitCost"));  
+		    return this;
+		   },
+		   updateBook : function(){
+		   		console.log("updateBook triggered");
+		   		this.model.set("title",this.$el.find("#txtTitle").val());
+		   		this.model.set("units",this.$el.find("#txtUnits").val());
+		   		this.model.set("unitCost",this.$el.find("#txtUnitCost").val());
+		   }   
+		});
 		$(function(){
 			window.book = new Book();
-			window.bookView= new BookView(book,"#bookViewTemplate");
-			window.bookView.initialize();
+			window.bookView= new BookView({model : window.book});
+			window.bookView.render().$el.appendTo(document.body);
 		});
 
 	</script>
