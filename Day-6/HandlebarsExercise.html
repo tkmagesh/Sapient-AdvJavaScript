@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Handlerbars.js Exercise</title>
+	<style>
+		li span.title{
+			color : blue;
+			font-weight: bold;
+			
+		}
+		li span.price{
+			font-style: italic;
+			color : red;
+		}
+		li.outofstock{
+			text-decoration: line-through;
+		}
+	</style>
+	<script>
+
+		var books = [
+				{id:1,title:"JavaScript in a Nutshell",cost:12,inStock:true},
+				{id:2,title:"JavaScript Design Patterns",cost:24,inStock:false},
+				{id:3,title:"JavaScript: The good parts",cost:15,inStock:true},
+				{id:4,title:"Secrets of a JavaScript Ninja",cost:28,inStock:true},
+				{id:5,title:"Illustrated JavaScript",cost:11,inStock:false},
+				{id:6,title:"JavaScript and the Web",cost:16,inStock:true}
+			];
+	</script>
+</head>
+<body>
+	<h4>Display the books list in an unordered list as shown below</h4>
+	<ul>
+		<li data-book-id="1" class="instock"><span class="title">JavaScript in a Nutshell</span><span class="price">(12)</span></li>	
+		<li data-book-id="1" class="outofstock"><span class="title">JavaScript Design Patterns</span><span class="price">(24)</span></li>	
+	</ul>
+</body>
+</html>
+
+
+
+
+
+
