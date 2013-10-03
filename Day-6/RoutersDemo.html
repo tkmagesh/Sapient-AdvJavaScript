@@ -6,7 +6,6 @@
 	<script src="jquery.js"></script>
 	<script src="underscore.js"></script>
 	<script src="backbone.js"></script>
-	<script src="handlebars.js"></script>
 	<script type="text/template" id="categoriesTemplate">
 		<div id="categories">
 		<h1>All Categories will be manipulated here</h1>
@@ -19,7 +18,7 @@
 	</script>
 	<script>
 	var ProductsView = Backbone.View.extend({
-		template : Handlebars.compile($("#productsTemplate").html()),
+		template : _.template($("#productsTemplate").html()),
 		initialize : function(){
 			console.log("productsView is initialized");
 			this.$el.hide();
@@ -38,7 +37,7 @@
 		}
 	});
 	var CategoriesView = Backbone.View.extend({
-		template : Handlebars.compile($("#categoriesTemplate").html()),
+		template : _.template($("#categoriesTemplate").html()),
 		initialize : function(){
 			console.log("categoriesView is initialized");
 			this.$el.hide();
@@ -68,14 +67,6 @@
 		displayProducts : function(id){
 				productsView.show(id);
 				categoriesView.hide();
-		},
-		setFilter : function(param){
-			if (param === "products"){
-			
-			} else {
-				
-			}
-			
 		}
 	});
 	$(function(){
@@ -94,8 +85,8 @@
 </head>
 
 <body>
-	<a href="#/products">Products</a>
-	<a href="#/categories">Categories</a>
+	<a href="#/products/200">Products</a>
+	<a href="#/categories/stationary">Categories</a>
 	<br/>
 	
 	
