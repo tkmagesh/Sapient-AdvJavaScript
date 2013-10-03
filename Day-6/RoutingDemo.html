@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Routing Demo</title>
+	<script src="jquery.js"></script>
+	<script src="underscore.js"></script>
+	<script src="backbone.js"></script>
+	<script src="handlebars.js"></script>
+	<script type="text/template" id="categoriesTemplate">
+		<div id="categories">
+		<h1>All Categories will be manipulated here</h1>
+		</div>
+	</script>
+	<script type="text/template" id="productsTemplate">
+		<div id="products">
+			<h1>All Products are manipulated here</h1>
+		</div>
+	</script>
+	<script>
+	var ProductsView = Backbone.View.extend({
+		template : Handlebars.compile($("#productsTemplate").html()),
+		initialize : function(){
+			console.log("productsView is initialized");
+			this.$el.hide();
+			this.$el.appendTo(document.body);
+		},
+		render : function(){
+			this.$el.append($(this.template({})));
+			return this;
+		},
+		show : function(id){
+			this.$el.find("#products > h1").html(id + " Product information is displayed here");
+			this.$el.show();
+		},
+		hide : function(){
+			this.$el.hide();
+		}
+	});
+	var CategoriesView = Backbone.View.extend({
+		template : Handlebars.compile($("#categoriesTemplate").html()),
+		initialize : function(){
+			console.log("categoriesView is initialized");
+			this.$el.hide();
+			this.$el.appendTo(document.body);
+		},
+		render : function(){
+			this.$el.append($(this.template({})));
+			return this;
+		},
+		show : function(name){
+			$("#categories > h1",this.$el).html(name + " category products are listed here");
+			this.$el.show();
+		},
+		hide : function(){
+			this.$el.hide();
+		}
+	});
+	var AppRouter = Backbone.Router.extend({
+		routes : {
+			"categories/:name" : 'displayCategories',
+			"products/:id" : 'displayProducts'
+		},
+		displayCategories : function(name){
+			productsView.hide();
+			categoriesView.show(name);
+		},
+		displayProducts : function(id){
+				productsView.show(id);
+				categoriesView.hide();
+		},
+		setFilter : function(param){
+			if (param === "products"){
+			
+			} else {
+				
+			}
+			
+		}
+	});
+	$(function(){
+		window.productsView = new ProductsView().render();
+		window.categoriesView = new CategoriesView().render();
+		window.router = new AppRouter();
+		Backbone.history.start();
+	});
+	</script>
+	<style>
+	div{
+		border : 3px solid black;
+		padding : 50px;
+	}
+	</style>
+</head>
+
+<body>
+	<a href="#/products">Products</a>
+	<a href="#/categories">Categories</a>
+	<br/>
+	
+	
+</body>
+</html>
