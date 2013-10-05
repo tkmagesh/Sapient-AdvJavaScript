@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mocha</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script src="chai.js"></script>
+    <script src="mocha.js"></script>
+    <script src="sinon.js"></script>
+    <script src="sinon-chai.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script>
+      function TimeService(){
+         this.getCurrentTime = function(){
+            return new Date();
+         }
+      }
+      function Market(timeService){
+         this.timeService = timeService;
+         this.isOpen = false;
+         this.WorkHours = { start : new Date(2013,9,5,9,0,0), end : new Date(2013,9,5,17,0,0) }
+      }
+
+      Market.prototype.Open = function(){
+         //var currentHour = new Date().getHours();
+         var currentHour = this.timeService.getCurrentTime().getHours();
+         if ( currentHour >= this.WorkHours.start.getHours() && currentHour <= this.WorkHours.end.getHours()) {
+            this.isOpen = true;
+         } else {
+            this.isOpen = false;
+         }
+      }
+
+   </script>
+    <script src="tests.js"></script>
+
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>
